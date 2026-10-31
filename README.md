@@ -18,6 +18,26 @@ It was created for the SEEED XIAO keyboard contest.\
 
 ***
 
+## 42-KEY VARIANT (WORK IN PROGRESS)
+
+This fork adds four keys to the TOTEM: one key above each outer pinky key (same 10° tilted column, one 17 mm pitch up) and one extra outer thumb key per side (continuing the thumb arc at 15°). The new keys form a sixth matrix column on XIAO pin D7 (`P1.12`, the former TRRS RX line), so this variant is meant for a wireless build with the XIAO nRF52840, where the TRRS jack is not populated.
+
+What is done in the KiCad project ([PCB/totem_0-3](/PCB/totem_0-3/)):
+
+- schematic: `SWL20/SWL21`, `SWR20/SWR21` with diodes `DL20/DL21`, `DR20/DR21` on `COL5_L`/`COL5_R`, XIAO pin 8 relabelled from `RX` to `COL5`, TRRS RX pin marked no-connect
+- PCB: the switch and diode footprints are placed with their nets assigned, and the old RX traces are removed
+
+What is still left to do in KiCad before ordering boards:
+
+- route `COL5_L`/`COL5_R` and the four new diode nets, and re-route the existing tracks that now run under the new footprints
+- extend the board outline (`Edge.Cuts`) around the new pinky and thumb keys, then refill the ground zones
+- move the back-side silkscreen text that now sits under the new left thumb key
+- regenerate the Gerbers and PDFs; the case STEP files also need to be re-modelled for the larger outline
+
+Firmware for this variant is an [RMK](https://rmk.rs/) project in [firmware/RMK/totem](/firmware/RMK/totem/).
+
+***
+
 ## PCB
 
 [Here](/PCB/) you can find the KiCad files and Gerbers for the TOTEM.
@@ -39,7 +59,8 @@ The build guide for the TOTEM can be found [here](/docs/buildguide.md).
 ## FIRMWARE
 
 [QMK (VIAL) precompiled](/firmware/QMK/) or [QMK (VIAL) source](/firmware/QMK/VIAL_source/) for the TOTEM (wired using the XIAO RP2040)\
-[ZMK precompiled](/firmware/ZMK/) or [ZMK source (outdated)](https://github.com/GEIGEIGEIST/zmk-config-totem) for the TOTEM (wireless using the XIAO BLE)
+[ZMK precompiled](/firmware/ZMK/) or [ZMK source (outdated)](https://github.com/GEIGEIGEIST/zmk-config-totem) for the TOTEM (wireless using the XIAO BLE)\
+[RMK source](/firmware/RMK/totem/) for the 42-key variant (wireless using the XIAO nRF52840)
 
 ***
 
